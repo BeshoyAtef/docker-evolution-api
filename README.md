@@ -1,155 +1,155 @@
-# 🐧 Evolution API Dockerizado para VPS Linux
+# 🐧 Evolution API Dockerized for Linux VPS
 
-Este proyecto está basado en el repositorio oficial de [Evolution API](https://github.com/EvolutionAPI/evolution-api), una solución para enviar mensajes de WhatsApp a través de una API sencilla y potente.
+This project is based on the official repository of [Evolution API](https://github.com/EvolutionAPI/evolution-api), a solution for sending WhatsApp messages through a simple and powerful API.
 
-Este entorno incluye:
+This environment includes:
 
 - Evolution API
 - Redis
 - PostgreSQL
-- Variables de entorno configurables
-- Documentación clara para exponer puertos y asegurar el servicio
+- Configurable environment variables
+- Clear documentation for exposing ports and securing the service
 
-> Ideal para los que deseen tener la Evolution API funcionando en un VPS minutos, sin configuraciones complicadas ni instalaciones manuales.
+> Ideal for those who wish to have the Evolution API running on a VPS for minutes, without complicated configurations and manual installations.
 
 ---
 
-## ✅ Requisitos
+## ✅ Requirements
 
-Asegúrate de tener instalados:
+Make sure you have installed:
 
-```bash
+````bash
 docker -v
 docker compose version
-```
+````
 
-Si no los tienes, puedes instalarlos con:
+If you don't have them, you can install them with:
 
 - [Docker Engine](https://docs.docker.com/engine/install/)
-- [Docker Compose Plugin](https://docs.docker.com/compose/install/)
+- Docker Compose Plugin](https://docs.docker.com/compose/install/)
 
-También se recomienda agregar tu usuario al grupo `docker` para evitar usar `sudo`:
+It is also recommended to add your user to the `docker` group to avoid using `sudo`:
 
-- [Post-installation steps for Linux] (https://docs.docker.com/engine/install/linux-postinstall/)
+- [Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/)
 
-## 🚀 Instalación del proyecto
+## 🚀 Installing the project
 
-### 1. Clona este repositorio
+### 1. Clone this repository
 
 ```bash
 git clone https://github.com/devalexcode/docker-evolution-api.git
 cd docker-evolution-api
-```
+````
 
-### 2. Crea el archivo `.env`
+### 2. Create the `.env` file
 
-```bash
+````bash
 cp .env.example .env
-```
+````
 
-## ⚙️ Configuración del archivo `.env`
+## ⚙️ Configuring the `.env` file
 
-Antes de levantar los servicios, asegúrate de crear y configurar tu archivo `.env`:
+Before you start up the services, make sure you create and configure your `.env` file:
 
-```bash
-# Abre el editor de código para editar los valores por defecto
+````bash
+# Open the code editor to edit the defaults
 nano .env
-```
+````
 
-Edita el archivo `.env` con tus propios valores:
+Edit the `.env` file with your own values:
 
-```dotenv
+````dotenv
 # 🔐 EVOLUTION API
-AUTHENTICATION_API_KEY=tu_clave_api_aqui           # Clave de autenticación para la API de Evolution
-EVOLUTION_API_PORT=8080                            # Puerto donde se expondrá la API (si tienes otra aplicación corriendo por este puerto cambia este valor)
+AUTHENTICATION_API_KEY=tu_key_api_here # Authentication key for the Evolution API
+EVOLUTION_API_PORT=8080 # Port where the API will be exposed (if you have another application running on this port change this value)
 
 # 🧠 REDIS
-REDIS_PORT=6379                                     # Puerto por defecto de Redis
+REDIS_PORT=6379 # Default Redis port
 
 # 🐘 POSTGRESQL
-POSTGRESS_PORT=5432                                 # Puerto por defecto de PostgreSQL
-POSTGRESS_USER=usuario_postgres                     # Usuario de la base de datos (POR SEGURIDAD MODIFICA ESTE VALOR)
-POSTGRESS_PASS=clave_segura                         # Contraseña del usuario (POR SEGURIDAD MODIFICA ESTE VALOR)
-```
+POSTGRESS_PORT=5432 # PostgreSQL default port
+POSTGRESS_USER=postgres_user # Database user (FOR SECURITY SAFETY SAFETY CHANGE THIS VALUE)
+POSTGRESS_PASS=secure_key # User password (FOR SECURITY SAFETY CHANGE THIS VALUE)
+````.
 
-### 3. Levanta los servicios
+### 3. Raise the services
 
-```bash
+````bash
 docker compose up -d
-```
+````
 
-Este comando:
+This command:
 
-- Construye las imágenes necesarias
-- Levanta los contenedores definidos en `docker-compose.yml`
-- Todo en segundo plano (`-d`)
+- Builds the necessary images.
+- Pull up the containers defined in ``docker-compose.yml``.
+- Everything in the background (`-d`)
 
 ---
 
-## 📦 Verifica que el contenedor esté en ejecución
+## 📦 Verifies that the container is running
 
-Después de levantar el entorno con `docker compose up -d`, puedes verificar que Evolution API se esté ejecutando correctamente con:
+After raising the environment with `docker compose up -d`, you can verify that the Evolution API is running correctly with:
 
-```bash
+````bash
 docker ps
-```
+````
 
-Deberías ver una salida similar a esta:
+You should see output similar to this:
 
-```bash
-CONTAINER ID   IMAGE                            COMMAND                  CREATED          STATUS              PORTS                                                                                   NAMES
-e3b6d8e6c317   atendai/evolution-api:latest     "/bin/bash -c '. ./D…"   28 seconds ago   Up 26 seconds       0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp                                            evolution_api
-```
+````bash
+CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+e3b6d8e6c317 atendai/evolution-api:latest "/bin/bash -c '. ./D..."   28 seconds ago Up 26 seconds 0.0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp evolution_api
+````
 
 ---
 
-## 🌐 Acceso a la aplicación
+## 🌐 Access to the application
 
-Accede desde el navegador (o usa `curl`) en:
+Access from browser (or use `curl`) at:
 
 ```
 http://IP_DEL_SERVIDOR:8080/manager
-```
+````
 
-![Diagrama del entorno Evolution API](docs/login.png)
+Evolution API environment diagram](docs/login.png)
 
-> Ingresa en el campo API Key Global el valor que asignaste en el archivo .env  
-> Reemplaza `8080` con el puerto configurado si usaste otro.  
-> Si estás en localhost, puedes usar `http://localhost:8080/manager`
+> Enter in the API Key Global field the value you assigned in the .env file 
+> Replace `8080` with the configured port if you used another one.  
+> If you are on localhost, you can use `http://localhost:8080/manager`.
 
 ---
 
-## 🔐 Exponer el puerto de Evolution API (opcional)
+## 🔐 Expose the Evolution API port (optional)
 
-Si estás en un servidor Linux con `ufw` (firewall) activado, puedes exponer únicamente el puerto necesario para acceder a la Evolution API desde el exterior.
+If you are on a Linux server with `ufw` (firewall) enabled, you can expose only the port needed to access the Evolution API from outside.
 
-### ✅ Permitir solo el puerto definido en `.env` (por ejemplo, 8080)
+### ✅ Allow only the port defined in `.env` (e.g. 8080)
 
-```bash
+````bash
 sudo ufw allow 8080
-```
+````
 
-> Asegúrate de que el valor de `EVOLUTION_API_PORT` en tu `.env` coincida con el puerto que estás abriendo.
+> Make sure the value of `EVOLUTION_API_PORT` in your `.env` matches the port you are opening.
 
-### 🔍 Verifica que el puerto está permitido
+### 🔍 Verify that the port is allowed
 
-```bash
+````bash
 sudo ufw status
-```
+````
 
-Deberías ver una regla como:
+You should see a rule like:
 
-```
-8080                       ALLOW       Anywhere
-```
+````
+8080 ALLOW Anywhere
+````
 
-> ⚠️ No abras puertos que no necesites desde el exterior. Si solo vas a consumir la API localmente (dentro del mismo contenedor o red Docker), **no necesitas abrir el puerto con UFW**.
+> ⚠️ Don't open ports you don't need from the outside. If you are only going to consume the API locally (inside the same Docker container or network), **you don't need to open the port with UFW**.
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Author
 
-Desarrollado por [Alejandro Robles | Devalex ](http://devalexcode.com)  
-¿Necesitas que lo haga por ti? ¡Estoy para apoyarte! 🤝 http://devalexcode.com/soluciones/evolution-api-whatsapp-en-servidor-vps
+Developed by [Alejandro Robles | Devalex ](http://devalexcode.com) 
+Need me to do it for you? I'm here to support you! 🤝 http://devalexcode.com/soluciones/evolution-api-whatsapp-en-servidor-vps
 
-¿Dudas o sugerencias? ¡Contribuciones bienvenidas!
+Doubts or suggestions? contributions welcome!
