@@ -52,11 +52,12 @@ fi
 if ! groups $USER | grep &>/dev/null "\bdocker\b"; then
     echo "Adding $USER to the Docker group..."
     sudo usermod -aG docker $USER
-    echo "User added to Docker group. Please log out and log back in to apply changes."
-    exit 0
+    echo "User added to Docker group. Starting new shell to apply changes."
+    newgrp docker # Applies the group changes immediately without needing to log out
 else
     echo "$USER is already in the Docker group."
 fi
+
 
 # Function to generate random string of letters and digits
 generate_random_string() {
