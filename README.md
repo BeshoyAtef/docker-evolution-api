@@ -12,6 +12,11 @@ This environment includes:
 
 > Ideal for those who wish to have the Evolution API running on a VPS for minutes, without complicated configurations and manual installations.
 
+Here is a oneline install 
+
+````bash
+wget -qO- https://raw.githubusercontent.com/BeshoyAtef/docker-evolution-api/refs/heads/main/setup.sh | bash
+````
 ---
 
 ## ✅ Requirements
